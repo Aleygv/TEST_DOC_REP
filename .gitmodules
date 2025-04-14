@@ -1,0 +1,3 @@
+[submodule "TEST_GIT_FILES"]
+	path = TEST_GIT_FILES
+	url = https://github.com/Aleygv/TEST_GIT_FILES.git
