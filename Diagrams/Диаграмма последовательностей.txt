@@ -1,0 +1,40 @@
+@startuml
+actor Player
+participant "Система Игры" as GS
+participant "Генератор Лора" as LG
+participant "QwenApi" as QA
+participant "База данных" as DB
+
+Player -> GS: Начать новую игру
+activate GS
+
+GS -> LG: Запрос на создание лора
+activate LG
+
+LG -> DB: Запрос шаблонов для промтов
+activate DB
+DB --> LG: Возврат шаблонов
+deactivate DB
+
+loop Серия запросов
+LG -> QA: Промт для генерации
+activate QA
+QA --> LG: Результат генерации
+deactivate QA
+end
+
+LG --> GS: Сгенерированные записки
+deactivate LG
+
+GS -> GS: Сохранение записок\nв локальных файлах
+GS --> Player: Загрузить игровой мир
+deactivate GS
+
+... В процессе игры ...
+
+Player -> GS: Найдена записка
+activate GS
+GS -> GS: Загрузить записку\nиз локальных файлов
+GS --> Player: Отобразить записку
+deactivate GS
+@enduml
